@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSG MVP</title>
+    <link rel="stylesheet" href="/css/tailwind.min.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css">
+ <!-- <script rel="application/javascript" src="node_modules/socket.io/client-dist/socket.io.js"></script> -->
+    
+</head>
+<body class="bg-gray-700">
+    
+    <div class="container relative">
+        <div class="fixed flex flex-row justify-between w-full p-4 text-xl font-bold text-gray-100 bg-gray-700 ">
+            <div>
+                X AE meow 
+            </div>
+            <div>Menu</div>
+        </div>
+    </div>
+    
+    <div class="grid grid-cols-1 bg-gray-700">
+        <div class="my-2 mx-2 rounded bg bg-gray-600 w-60">
+           
+        <div class="my-2 mx-2 rounded bg bg-gray-600 w-60">
+            <div class="w-full px-2 rounded bg-gray-500 bg-gray-400 text-xm text-gray-100">
+                hitesh
+            </div>
+        </div>
+    <div class="px-2  text-gray-100 py-1"></div>
+        <div id="messages" class="mb-16 px-2 my-4 text-gray-100 py-1">
+        </div>
+    
+    </div>
+
+    <form id="form" action="">
+    <div class="container fixed bottom-0 ">
+        <div class="flex flex-row rounded-md justify-between w-full p-4 text-xm font-bold text-gray-100 bg-gray-500 ">
+            
+            <input id="input" autocomplete="off" class="form-control rounded px-2 bg-gray-400 w-10/12" class="rounded-md w-10/12 p-1 bg-gray-600 text-gray-100" type="text" placeholder="name" > </input>
+            <div class="place-self-center p-1">
+                <button type="submit" name="sendmsg" id="send"> send </button>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    
+    
+        
+      
+      <script src="/socket.io/socket.io.js"></script>
+  
+      <script>
+        var socket = io();
+  
+        var messages = document.getElementById('messages');
+        var form = document.getElementById('form');
+        var input = document.getElementById('input');
+  
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          if (input.value) {
+            socket.emit('chat message', input.value);
+            input.value = '';
+          }
+        });
+  
+        socket.on('chat message', function(msg) {
+          var item = document.createElement('div');
+          item.textContent = msg;
+          messages.appendChild(item);
+          window.scrollTo(0, document.body.scrollHeight);
+        });
+      </script>
+
+</script>
+
+</body>
+</html>
